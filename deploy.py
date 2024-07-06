@@ -25,6 +25,6 @@ if st.button("Log in", type="primary"):
         st.session_state.username = username  # Simpan username di session_state
         st.success("Logged in successfully!")
         sleep(0.5)
-        st.switch_page("pages/THD-Tricluster.py")
+        st.switch_page("pages/OPTricluster.py")
     else:
         st.error("Incorrect username or password")
