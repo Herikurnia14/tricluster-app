@@ -1,0 +1,61 @@
+Optimasi THD-Tricluster dengan ACO:
+
+Representasi:
+Setiap semut merepresentasikan satu tricluster potensial.
+Ruang pencarian adalah matriks 3D dari data (gen x sampel x waktu).
+
+Inisialisasi:
+Sebarkan semut secara acak di ruang pencarian.
+
+Konstruksi Solusi:
+Setiap semut membangun tricluster dengan bergerak melalui ruang 3D.
+Pergerakan dipengaruhi oleh feromon dan informasi heuristik (misalnya, similaritas ekspresi gen).
+
+Update Feromon:
+Setelah semua semut membangun tricluster, update jalur feromon.
+Tricluster dengan kualitas lebih tinggi (berdasarkan koherensi dan ukuran) mendapat feromon lebih banyak.
+
+Evaporasi Feromon:
+Terapkan evaporasi feromon untuk mencegah konvergensi prematur.
+
+Iterasi:
+Ulangi langkah 3-5 untuk sejumlah iterasi atau sampai kriteria konvergensi terpenuhi.
+
+Ekstraksi Tricluster:
+Pilih tricluster terbaik dari solusi yang dihasilkan oleh koloni semut.
+
+Keuntungan pendekatan ini:
+Dapat menemukan tricluster optimal secara global.
+Mampu menangani ruang pencarian yang kompleks dan besar.
+Bisa menemukan multiple tricluster dalam satu run.
+
+Saran nama untuk THD-Tricluster yang dioptimasi dengan ACO:
+"ACO-THD-Tricluster" (Ant Colony Optimized Three-dimensional Hierarchical Clustering for Tricluster Discovery)
+Penjelasan nama:
+
+ACO: Menunjukkan penggunaan Ant Colony Optimization.
+THD: Mempertahankan referensi ke Three-dimensional Hierarchical approach.
+Tricluster: Mengindikasikan tujuan utama algoritma.
+
+Implementasi detail:
+
+Definisi Feromon:
+Feromon bisa direpresentasikan sebagai tensor 3D yang sesuai dengan data.
+Nilai feromon mencerminkan "kualitas" suatu elemen untuk menjadi bagian dari tricluster.
+
+Aturan Transisi:
+Semut memilih elemen berikutnya berdasarkan kombinasi nilai feromon dan informasi heuristik.
+Misalnya: p(i,j,k) = [τ(i,j,k)]^α * [η(i,j,k)]^β / Σ[τ(i,j,k)]^α * [η(i,j,k)]^β
+Dimana τ adalah feromon, η adalah informasi heuristik, α dan β adalah parameter bobot.
+
+Update Feromon:
+Setelah semua semut menyelesaikan tur, update feromon:
+τ(i,j,k) = (1-ρ) * τ(i,j,k) + Δτ(i,j,k)
+Dimana ρ adalah tingkat evaporasi, dan Δτ adalah jumlah feromon yang ditambahkan.
+
+Fungsi Fitness:
+Definisikan fungsi fitness untuk mengevaluasi kualitas tricluster:
+F = w1 * koherensi + w2 * ukuran
+Dimana w1 dan w2 adalah bobot yang bisa disesuaikan.
+
+Dengan pendekatan ini, ACO-THD-Tricluster dapat mengoptimalkan pencarian tricluster dengan lebih efisien, potensial menemukan pola yang mungkin terlewatkan oleh metode deterministik, dan mampu menangani kompleksitas data microarray 3D dengan lebih baik.
