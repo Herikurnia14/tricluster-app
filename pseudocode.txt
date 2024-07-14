@@ -1,0 +1,64 @@
+Algorithm ACO-THD-Tricluster:
+    Input: 3D data matrix, number of ants, number of iterations, α, β, ρ, q0
+    Output: Best tricluster found
+
+    Initialize pheromone matrix with ones
+    Initialize best_tricluster = None, best_fitness = 0
+
+    For iteration = 1 to number of iterations:
+        For each ant:
+            tricluster = Construct_Solution()
+            Evaluate fitness of tricluster
+            If fitness > best_fitness:
+                best_tricluster = tricluster
+                best_fitness = fitness
+        
+        Update_Pheromone(all triclusters)
+        Evaporate_Pheromone()
+    
+    Return best_tricluster, best_fitness
+
+Function Construct_Solution():
+    Initialize empty tricluster
+    Choose random starting point
+    While tricluster size < minimum(data dimensions):
+        If random() < q0:
+            next_element = Choose_Best(tricluster)
+        Else:
+            next_element = Choose_Probabilistic(tricluster)
+        
+        If next_element is None:
+            Break
+        Add next_element to tricluster
+    
+    Return tricluster
+
+Function Choose_Best(tricluster):
+    candidates = Get_Candidates(tricluster)
+    Return candidate with max(pheromone^α * heuristic^β)
+
+Function Choose_Probabilistic(tricluster):
+    candidates = Get_Candidates(tricluster)
+    Calculate probabilities based on pheromone and heuristic
+    Return randomly chosen candidate based on probabilities
+
+Function Get_Candidates(tricluster):
+    Return neighboring elements not in tricluster
+
+Function Update_Pheromone(triclusters):
+    For each tricluster:
+        deposit = Calculate_Fitness(tricluster)
+        For each element in tricluster:
+            Increase pheromone by deposit
+
+Function Evaporate_Pheromone():
+    Multiply all pheromone values by (1 - ρ)
+
+Function Calculate_Fitness(tricluster):
+    coherence = Calculate_Coherence(tricluster)
+    size = tricluster size / total data size
+    Return w1 * coherence + w2 * size
+
+Function Calculate_Coherence(tricluster):
+    Calculate average Pearson correlation between elements
+    Return average correlation
